@@ -39,12 +39,12 @@ if __name__ == "__main__":
 
 
 
-def parse_input(user_input):
+def parse_input(user_input): #The function takes a user input string, splits it into a command and its arguments, and returns the command in lowercase along with the arguments as a list.
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
     return cmd, *args
 
-def add_contact(args, contacts):
+def add_contact(args, contacts):   #The function takes a list of arguments and a dictionary of contacts, tries to add a new contact to the dictionary using the provided name and phone number, and returns a message indicating whether the contact was added successfully or if there was an error with the input.
     try: 
         name, phone = args
         contacts[name] = phone
@@ -52,7 +52,7 @@ def add_contact(args, contacts):
     except ValueError:
         return "Invalid input. Please provide both name and phone number."
 
-def change_username_phone(args, contacts):
+def change_username_phone(args, contacts): #The function takes a list of arguments and a dictionary of contacts, tries to update the phone number of an existing contact in the dictionary using the provided name and new phone number, and returns a message indicating whether the contact was updated successfully, if the contact was not found, or if there was an error with the input.
     try:
         name, phone = args
         if name in contacts:
@@ -63,14 +63,14 @@ def change_username_phone(args, contacts):
     except ValueError:
         return "Invalid input. Please provide both name and phone number."
 
-def show_phone(args, contacts):
+def show_phone(args, contacts): #The function takes a list of arguments and a dictionary of contacts, tries to retrieve the phone number of a contact from the dictionary using the provided name, and returns the phone number if the contact is found or a message indicating that the contact was not found if it is not in the dictionary.
     name = args[0]
     if name in contacts:
         return contacts[name]
     else:
         return "Contact not found."
     
-def show_all(args, contacts):
+def show_all(args, contacts): #The function takes a list of arguments and a dictionary of contacts, checks if there are any contacts in the dictionary, and returns a formatted string of all contacts and their phone numbers if there are any, or a message indicating that no contacts were found if the dictionary is empty.
     if contacts:
         return "\n".join(f"{name}: {phone}" for name, phone in contacts.items())
     else:
