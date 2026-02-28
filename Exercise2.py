@@ -9,14 +9,22 @@ def get_cats_info(path):
             lines = [el.strip() for el in file.readlines()] # Read the lines from the file and strip any leading/trailing whitespace
             cats_info = []
             for line in lines: # Process each line to extract cat information
+
+                if not line: # Skip empty lines
+                    continue
+
+                if line.count(',') != 2: # Check if the line has the correct format (id,name,age)
+                    print(f"Invalid data format in line: {line}. Expected format: id,name,age")
+                    continue
+
                 cat_id, name, age = line.split(',')
                 cat_dict = {"id": cat_id, "name": name, "age": age}
                 cats_info.append(cat_dict) # Append the cat information dictionary to the list of cats
+
         return cats_info
+    
     except FileNotFoundError:
         print(f"File {path} not found.")
-    except ValueError:
-        print(f"File {path} contains invalid data.")
     except Exception as e:
         print(f"An error occurred: {e}")
 

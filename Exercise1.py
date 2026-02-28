@@ -6,7 +6,14 @@ def total_salary(path): #path - it's the path to the file with salaries
             lines = [el.strip() for el in file.readlines()]
 
             salaries_dict = {} #dictionary to store employee names and their salaries
-            for line in lines:
+            for line in lines:         
+
+                if not line: # Skip empty lines
+                    continue
+                if line.count(',') != 1: # Check if the line has the correct format (name,salary)
+                    print(f"Invalid data format in line: {line}. Expected format: name,salary")
+                    continue
+
                 name, salary = line.split(',')
                 salaries_dict[name] = int(salary)
 
@@ -19,8 +26,6 @@ def total_salary(path): #path - it's the path to the file with salaries
         return calculated_salary, salary_average
     except FileNotFoundError:
         print(f"File {path} not found.")
-    except ValueError:
-        print(f"File {path} contains invalid data.")
     except Exception as e:
         print(f"An error occurred: {e}")
     
